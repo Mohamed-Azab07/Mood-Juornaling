@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Mood Tracker</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon">
+<nav>
+  {% if g.user %}
+  <h1> {{ g.user['username'].title() }}'s Mood Tracking</h1>
+
+  {% else %}
+  <h1> Welcome to Mood Tracker &#10084 </h1>
+
+  {% endif %}
+  
+  <ul>
+    {% if g.user %}
+      <!-- <li><span>{{ g.user['username'] }}  </span> -->
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+  <div style="text-align: center;">
+    Developed with &#10084 by <a href="https://github.com/Mohamed-Azab07" style="color: #cc005f;">Mohamed Azab</a>
+  </div>
+  
+</section>
